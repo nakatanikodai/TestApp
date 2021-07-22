@@ -3,13 +3,23 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TestService {
 	@Autowired
 	TestRepository repository;
-	public Iterable<TestEntity> getAllItems() {
+	public List<TestEntity> getAllItems() {
 		var list = repository.findAll();
 		return list;
 	}
+	
+//	public TestEntity insertItem() {
+//		var instance = new TestEntity();
+//		instance.id = 10;
+//		instance.name = "test";
+//		return repository.save(instance);
+//	}
 }

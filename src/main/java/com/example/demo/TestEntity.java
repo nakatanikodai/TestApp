@@ -12,10 +12,11 @@ import javax.persistence.Table;
 public class TestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    
     @Column(name="ID")
-    private Integer id;
+    public Integer id;
     @Column(name="NAME")
-    private String name;
+    public String name;
     
     // getter and setter
     public Integer getId() {
