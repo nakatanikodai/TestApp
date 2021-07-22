@@ -1,13 +1,28 @@
 <!DOCTYPE html>
+
+
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8"></meta>
 		<title>INDEX</title>
 	</head>
-	<body>
+<script type="text/javascript" th:inline="javascript">
+	var firstClick = true;
+	/* ボタンを押すたびに文字の色が変化する。 */
+	function changeTextColor() {
+		if(firstClick){
+			document.getElementById("test").style.color = 'yellow';	
+			firstClick = false;
+		} else {
+			document.getElementById("test").style.color = 'black';
+			firstClick = true;
+		}
+	}
+</script>
+<body>
 		<table>
 		<thead>
-		<tr>
+		<tr id="test">
 			<th>ID</th>
 			<th>名前</th>
 			<th>年齢</th>
@@ -19,5 +34,7 @@
 				<td th:text="${a.name}"></td>
 			</tbody>
 		</table>
+		<!--changeTextColorメソッドを呼び出す-->
+		<button onclick = "changeTextColor();">Change Color</button>
 	</body>
 </html>
