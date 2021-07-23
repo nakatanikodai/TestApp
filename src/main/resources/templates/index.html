@@ -21,18 +21,42 @@
 </script>
 <body>
 		<table>
-		<thead>
-		<tr id="test">
-			<th>ID</th>
-			<th>名前</th>
-			<th>年齢</th>
-		</tr>
-		</thead>
-			<tbody>
-				<tr th:each="a:${list}">
-				<td th:text="${a.id}"></td>
-				<td th:text="${a.name}"></td>
-			</tbody>
+			<thead>
+				<tr id="test">
+					<th>ID</th>
+					<th>名前</th>
+				</tr>
+			</thead>
+				<tbody>
+					<tr>
+						<td>--------------IDが3以下------------------------------------------</td>
+					</tr>
+					<!-- IDが3以下のオブジェクトを表示 -->
+					<tr th:each="a:${list}" th:if="${a.id <= 3}">
+						<td th:text="${a.id}"></td>
+						<td th:text="${a.name}"></td>
+					</tr>
+				</tbody>
+				<tbody>
+					<tr>
+						<td>--------------ここからはIDが4以上で、5以下------------------</td>
+					</tr>
+					<!-- IDが3以下のオブジェクトを表示 -->
+					<tr th:each="a:${list}" th:if="${a.id >= 4 && a.id <= 5}">
+						<td th:text="${a.id}"></td>
+						<td th:text="${a.name}"></td>
+					</tr>
+				</tbody>
+				<tbody>
+					<tr>
+						<td>--------------ここからはIDが6以上------------------------------</td>
+					</tr>
+					<!-- IDが3以下のオブジェクトを表示 -->
+					<tr th:each="a:${list}" th:if="${a.id >= 6}">
+						<td th:text="${a.id}"></td>
+						<td th:text="${a.name}"></td>
+					</tr>
+				</tbody>
 		</table>
 		<!--changeTextColorメソッドを呼び出す-->
 		<button onclick = "changeTextColor();">Change Color</button>
