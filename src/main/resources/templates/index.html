@@ -6,19 +6,6 @@
 		<meta charset="UTF-8"></meta>
 		<title>INDEX</title>
 	</head>
-<script type="text/javascript" th:inline="javascript">
-	var firstClick = true;
-	/* ボタンを押すたびに文字の色が変化する。 */
-	function changeTextColor() {
-		if(firstClick){
-			document.getElementById("test").style.color = 'yellow';	
-			firstClick = false;
-		} else {
-			document.getElementById("test").style.color = 'black';
-			firstClick = true;
-		}
-	}
-</script>
 <body>
 		<table>
 			<thead>
@@ -43,7 +30,7 @@
 					</tr>
 					<!-- IDが3以下のオブジェクトを表示 -->
 					<tr th:each="a:${list}" th:if="${a.id >= 4 && a.id <= 5}">
-						<td th:text="${a.id}"></td>
+						<td th:text="${a.id}" draggable="true" id="dragArea"></td>
 						<td th:text="${a.name}"></td>
 					</tr>
 				</tbody>
@@ -57,8 +44,52 @@
 						<td th:text="${a.name}"></td>
 					</tr>
 				</tbody>
+				<tbody>
+				</tbody>
 		</table>
+		<div>
+			<form>
+				<textarea id="dropArea">
+				</textarea>
+			</form>
+		</div>
 		<!--changeTextColorメソッドを呼び出す-->
 		<button onclick = "changeTextColor();">Change Color</button>
 	</body>
+<script type="text/javascript" th:inline="javascript">
+	var firstClick = true;
+	/* ボタンを押すたびに文字の色が変化する。 */
+	function changeTextColor() {
+		if(firstClick){
+			document.getElementById("test").style.color = 'yellow';	
+			firstClick = false;
+		} else {
+			document.getElementById("test").style.color = 'black';
+			firstClick = true;
+		}
+	}
+	
+	var dragObject = document.getElementById("dragArea");
+	var dropObject = document.getElementById("dropArea");
+	
+	dragObject.addEventListener("dragstart", function(evt){
+		evt.dataTransfer.setData("text/plain", evt.target.textContent);
+		evt.stopPropagation();
+	}, false);
+	
+	dropObject.addEventListener("drop", function(evt){
+		var dropText = evt.dataTransfer.getData("text/plain");
+		dropObject.innerHTML = dropText;
+		evt.preventDefault();
+	},false);
+	
+	dropObject.addEventListener("dragover", function(evt){
+		evt.preventDefault();
+	}, false);
+	
+	dropObject.addEventListener("dragenter", function(evt){
+		evt.preventDefault();
+	}, false);
+	
+	</script>
 </html>
