@@ -51,7 +51,7 @@
 					<!-- IDが3以下のオブジェクトを表示 -->
 					<tbody  id="list">
 						<tr th:each="a:${list}">
-							<td th:text="${a.id}" class="dragAreaClass"></td>
+							<td th:text="${a.id}" class="dragAreaClass" draggable=true></td>
 							<td th:text="${a.name}"></td>
 						</tr>
 					</tbody>
@@ -79,12 +79,11 @@
 		}
 	}
 	
-	var item = document.getElementById("list").childElementCount;
-	console.log(item);
+	/* ドラッグして表示に関する実装 */
 	var dragObject = document.getElementById("dragArea");
 	var dropObject = document.getElementById("dropArea"); 
 	
-	dragObject.addEventListener("dragstart", function(evt){
+	/* dragObject.addEventListener("dragstart", function(evt){
 		evt.dataTransfer.setData("text/plain", evt.target.textContent);
 		evt.stopPropagation();
 	}, false);
@@ -93,23 +92,36 @@
 		var dropText = evt.dataTransfer.getData("text/plain");
 		dropObject.innerHTML = dropText;
 		evt.preventDefault();
-	},false);
+	},false); */
 	
-	dropObject.addEventListener("dragover", function(evt){
-		evt.preventDefault();
-	}, false);
-	
-	dropObject.addEventListener("dragenter", function(evt){
-		evt.preventDefault();
-	}, false);
-	
-	
+	/* 表示される要素全てに動的にIDを付与する */
 	var testId = "testId";
 	var tmp = document.getElementsByClassName("dragAreaClass");
-	console.log(tmp);
 	for(var i=0; i<=tmp.length-1; i++){
 		tmp[i].setAttribute("id", testId+i);
+		
+		/* tmp[i].addEventListener("dragstart", function(evt){
+			console.log(tmp[i]);
+			evt.dataTransfer.setData("text/plain", evt.target.textContent);
+			evt.stopPropagation();
+		}, false); */
 	}
 	
+	dropObject.addEventListener("drop", function(evt){
+		var dropText = evt.dataTransfer.getData("text/plain");
+		dropObject.innerHTML = dropText;
+		evt.preventDefault();
+	},false);
+	
+	var item = document.getElementById("list").childElementCount;
+	for(var i=0; i<item; i++){
+		var test = "testId" + i;
+		var dragObject = document.getElementById(test);
+		dragObject.addEventListener("dragstart", function(evt){
+			console.log(dragObject);
+			evt.dataTransfer.setData("text/plain", evt.target.textContent);
+			evt.stopPropagation();
+		}, false); 
+	}
 	</script>
 </html>
