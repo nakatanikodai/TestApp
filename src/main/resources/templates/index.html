@@ -6,19 +6,6 @@
 		<meta charset="UTF-8"></meta>
 		<title>INDEX</title>
 	</head>
-<script type="text/javascript" th:inline="javascript">
-	var firstClick = true;
-	/* ボタンを押すたびに文字の色が変化する。 */
-	function changeTextColor() {
-		if(firstClick){
-			document.getElementById("test").style.color = 'yellow';	
-			firstClick = false;
-		} else {
-			document.getElementById("test").style.color = 'black';
-			firstClick = true;
-		}
-	}
-</script>
 <body>
 		<table>
 			<thead>
@@ -39,17 +26,17 @@
 				</tbody>
 				<tbody>
 					<tr>
-						<td>--------------ここからはIDが4以上で、5以下------------------------------</td>
+						<td>--------------ここからはIDが4以上で、5以下(4だけドラッグ可能)------------------------------</td>
 					</tr>
 					<!-- IDが3以下のオブジェクトを表示 -->
 					<tr th:each="a:${list}" th:if="${a.id >= 4 && a.id <= 5}">
-						<td th:text="${a.id}"></td>
+						<td th:text="${a.id}" draggable="true" id="dragArea"></td>
 						<td th:text="${a.name}"></td>
 					</tr>
 				</tbody>
 				<tbody>
 					<tr>
-						<td>--------------ここからはIDが6以上------------------------------ーー</td>
+						<td>--------------ここからはIDが6以上------------------------------</td>
 					</tr>
 					<!-- IDが3以下のオブジェクトを表示 -->
 					<tr th:each="a:${list}" th:if="${a.id >= 6}">
@@ -57,8 +44,69 @@
 						<td th:text="${a.name}"></td>
 					</tr>
 				</tbody>
+				<tbody>
+					<tr>
+						<td>--------------全てを表示------------------------------</td>
+					</tr>
+					<!-- IDが3以下のオブジェクトを表示 -->
+					<tbody  id="list">
+						<tr th:each="a:${list}">
+							<td th:text="${a.id}" class="dragAreaClass" draggable=true></td>
+							<td th:text="${a.name}"></td>
+						</tr>
+					</tbody>
+				</tbody>
 		</table>
+		<div>
+			<form>
+				<textarea id="dropArea" style="height: 15px;">
+				</textarea>
+			</form>
+		</div>
 		<!--changeTextColorメソッドを呼び出す-->
 		<button onclick = "changeTextColor();">Change Color</button>
 	</body>
+<script type="text/javascript" th:inline="javascript">
+	var firstClick = true;
+	/* ボタンを押すたびに文字の色が変化する。 */
+	function changeTextColor() {
+		if(firstClick){
+			document.getElementById("test").style.color = 'yellow';	
+			firstClick = false;
+		} else {
+			document.getElementById("test").style.color = 'black';
+			firstClick = true;
+		}
+	}
+	
+	/* ドラッグして表示に関する実装 */
+	var dragObject = document.getElementById("dragArea");
+	var dropObject = document.getElementById("dropArea"); 
+	
+	/* 表示される要素全てに動的にIDを付与する */
+	var testId = "testId";
+	var tmp = document.getElementsByClassName("dragAreaClass");
+	for(var i=0; i<=tmp.length-1; i++){
+		tmp[i].setAttribute("id", testId+i);
+	}
+	
+	/* ドラッグすると文字がテキストエリアに表示される */
+	dropObject.addEventListener("drop", function(evt){
+		var dropText = evt.dataTransfer.getData("text/plain");
+		dropObject.innerHTML = dropText;
+		evt.preventDefault();
+	},false);
+	
+	/* 動的に付与されたIDを設定し、ドラッグイベントを実装 */
+	var item = document.getElementById("list").childElementCount;
+	for(var i=0; i<item; i++){
+		var test = "testId" + i;
+		var dragObject = document.getElementById(test);
+		dragObject.addEventListener("dragstart", function(evt){
+			console.log(dragObject);
+			evt.dataTransfer.setData("text/plain", evt.target.textContent);
+			evt.stopPropagation();
+		}, false); 
+	}
+	</script>
 </html>
