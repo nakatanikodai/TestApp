@@ -26,7 +26,7 @@
 				</tbody>
 				<tbody>
 					<tr>
-						<td>--------------ここからはIDが4以上で、5以下------------------------------</td>
+						<td>--------------ここからはIDが4以上で、5以下(4だけドラッグ可能)------------------------------</td>
 					</tr>
 					<!-- IDが3以下のオブジェクトを表示 -->
 					<tr th:each="a:${list}" th:if="${a.id >= 4 && a.id <= 5}">
@@ -36,7 +36,7 @@
 				</tbody>
 				<tbody>
 					<tr>
-						<td>--------------ここからはIDが6以上------------------------------ーー</td>
+						<td>--------------ここからはIDが6以上------------------------------</td>
 					</tr>
 					<!-- IDが3以下のオブジェクトを表示 -->
 					<tr th:each="a:${list}" th:if="${a.id >= 6}">
@@ -45,6 +45,16 @@
 					</tr>
 				</tbody>
 				<tbody>
+					<tr>
+						<td>--------------全てを表示------------------------------</td>
+					</tr>
+					<!-- IDが3以下のオブジェクトを表示 -->
+					<tbody  id="list">
+						<tr th:each="a:${list}">
+							<td th:text="${a.id}" class="dragAreaClass"></td>
+							<td th:text="${a.name}"></td>
+						</tr>
+					</tbody>
 				</tbody>
 		</table>
 		<div>
@@ -69,14 +79,16 @@
 		}
 	}
 	
+	var item = document.getElementById("list").childElementCount;
+	console.log(item);
 	var dragObject = document.getElementById("dragArea");
-	var dropObject = document.getElementById("dropArea");
+	var dropObject = document.getElementById("dropArea"); 
 	
 	dragObject.addEventListener("dragstart", function(evt){
 		evt.dataTransfer.setData("text/plain", evt.target.textContent);
 		evt.stopPropagation();
 	}, false);
-	
+
 	dropObject.addEventListener("drop", function(evt){
 		var dropText = evt.dataTransfer.getData("text/plain");
 		dropObject.innerHTML = dropText;
@@ -90,6 +102,14 @@
 	dropObject.addEventListener("dragenter", function(evt){
 		evt.preventDefault();
 	}, false);
+	
+	
+	var testId = "testId";
+	var tmp = document.getElementsByClassName("dragAreaClass");
+	console.log(tmp);
+	for(var i=0; i<=tmp.length-1; i++){
+		tmp[i].setAttribute("id", testId+i);
+	}
 	
 	</script>
 </html>
