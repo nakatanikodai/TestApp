@@ -63,8 +63,11 @@
 				</textarea>
 			</form>
 		</div>
+		<div id="display">
+			
+		</div>
 		<!--changeTextColorメソッドを呼び出す-->
-		<button onclick = "changeTextColor();">Change Color</button>
+		<button onclick = "insertElem();">Change Color</button>
 	</body>
 <script type="text/javascript" th:inline="javascript">
 	var firstClick = true;
@@ -121,5 +124,16 @@
 	/* 要素を取得し、要素のシャッフルを実行する */
 	var array = document.getElementById("list").children;
 	console.log(shuffle(array));
+	
+	/* 要素を追加 */
+	function insertElem(){
+		var element = document.createElement('div');
+		element.id = 'child';
+		element.className = 'created';
+		element.innerHTML = '子要素';
+		
+		var parent = document.getElementById('display');
+		parent.appendChild(element);
+	}
 	</script>
 </html>
