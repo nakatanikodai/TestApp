@@ -7,65 +7,24 @@
 		<title>INDEX</title>
 	</head>
 <body>
-		<table>
+		<table border="1">
 			<thead>
 				<tr id="test">
-					<th>ID</th>
+					<th>RANK</th>
 					<th>名前</th>
 				</tr>
 			</thead>
-				<tbody>
-					<tr>
-						<td>--------------IDが3以下------------------------------------------</td>
-					</tr>
-					<!-- IDが3以下のオブジェクトを表示 -->
-					<tr th:each="a:${list}" th:if="${a.id <= 3}">
-						<td th:text="${a.id}"></td>
+			<tbody>
+				<!-- IDが3以下のオブジェクトを表示 -->
+				<tbody  id="list">
+					<tr th:each="a:${list}" id="list2">
+						<td th:text="${a.rank}"></td>
 						<td th:text="${a.name}"></td>
 					</tr>
 				</tbody>
-				<tbody>
-					<tr>
-						<td>--------------ここからはIDが4以上で、5以下(4だけドラッグ可能)------------------------------</td>
-					</tr>
-					<!-- IDが3以下のオブジェクトを表示 -->
-					<tr th:each="a:${list}" th:if="${a.id >= 4 && a.id <= 5}">
-						<td th:text="${a.id}" draggable="true" id="dragArea"></td>
-						<td th:text="${a.name}"></td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr>
-						<td>--------------ここからはIDが6以上------------------------------</td>
-					</tr>
-					<!-- IDが3以下のオブジェクトを表示 -->
-					<tr th:each="a:${list}" th:if="${a.id >= 6}">
-						<td th:text="${a.id}"></td>
-						<td th:text="${a.name}"></td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr>
-						<td>--------------全てを表示------------------------------</td>
-					</tr>
-					<!-- IDが3以下のオブジェクトを表示 -->
-					<tbody  id="list">
-						<tr th:each="a:${list}" id="list2">
-							<td th:text="${a.id}" class="dragAreaClass" draggable=true th:value="${a.name}"></td>
-							<td th:text="${a.name}"></td>
-						</tr>
-					</tbody>
-				</tbody>
+			</tbody>
 		</table>
-		<div>
-			<form>
-				<textarea id="dropArea" style="height: 15px;">
-				</textarea>
-			</form>
-		</div>
-		<div id="display">
 			
-		</div>
 		<!--changeTextColorメソッドを呼び出す-->
 		<button onclick = "insertElem();">Change Color</button>
 	</body>

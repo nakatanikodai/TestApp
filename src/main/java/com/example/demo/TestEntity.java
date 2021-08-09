@@ -8,25 +8,38 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "test3")
+@Table(name = "fifa")
 public class TestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     
     @Column(name="ID")
     public Integer id;
+    @Column(name="RANK")
+    public Integer rank;
     @Column(name="NAME")
     public String name;
     
     // getter and setter
+    //ID
     public Integer getId() {
-        return id;
+        return this.id;
     }
     public void setId(Integer id) {
         this.id = id;
     }
+    
+    //Rank
+    public Integer getRank() {
+    	return this.rank;
+    }
+    public void setRank(Integer rank) {
+    	this.rank = rank;
+    }
+    
+    //Name
     public String getName() {
-        return name;
+        return this.name;
     }
     public void setName(String name) {
         this.name = name;
