@@ -50,8 +50,8 @@
 					</tr>
 					<!-- IDが3以下のオブジェクトを表示 -->
 					<tbody  id="list">
-						<tr th:each="a:${list}">
-							<td th:text="${a.id}" class="dragAreaClass" draggable=true></td>
+						<tr th:each="a:${list}" id="list2">
+							<td th:text="${a.id}" class="dragAreaClass" draggable=true th:value="${a.name}"></td>
 							<td th:text="${a.name}"></td>
 						</tr>
 					</tbody>
@@ -63,8 +63,11 @@
 				</textarea>
 			</form>
 		</div>
+		<div id="display">
+			
+		</div>
 		<!--changeTextColorメソッドを呼び出す-->
-		<button onclick = "changeTextColor();">Change Color</button>
+		<button onclick = "insertElem();">Change Color</button>
 	</body>
 <script type="text/javascript" th:inline="javascript">
 	var firstClick = true;
@@ -103,7 +106,6 @@
 		var test = "testId" + i;
 		var dragObject = document.getElementById(test);
 		dragObject.addEventListener("dragstart", function(evt){
-			console.log(dragObject);
 			evt.dataTransfer.setData("text/plain", evt.target.textContent);
 			evt.stopPropagation();
 		}, false); 
@@ -116,10 +118,25 @@
 	    [array[i], array[j]] = [array[j], array[i]];
 	  }
 	  return array;
+	  console.log(array);
 	}
 	
 	/* 要素を取得し、要素のシャッフルを実行する */
-	var array = document.getElementById("list").children;
-	console.log(shuffle(array));
+	var array = document.getElementById("list2").children;
+	/* shuffle(array); */
+	
+	/* 要素を追加 */
+	function insertElem(){
+		var item = document.getElementById("list").childElementCount;
+		var element = document.createElement('div');
+		for(i=0; i<item; i++){
+			element.innerHTML = shuffle(array);
+			console.log(element);
+			var parent = document.getElementById('display');
+			parent.appendChild(element);
+		} 
+		
+		
+	}
 	</script>
 </html>
