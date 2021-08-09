@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 	@Autowired
-	TestService service;
+	TestServices service;
 	@RequestMapping("/")
 	private ModelAndView index(ModelAndView mav) {
 		mav.setViewName("index");
